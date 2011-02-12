@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tar Heel Player</title>
+    <style type="text/css">
+      @import "http://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/resources/dojo.css";
+      @import "http://ajax.googleapis.com/ajax/libs/dojo/1.5/dijit/themes/tundra/tundra.css";
+      html, body, #frame {width: 100%; height: 100%;}
+      #controls { position: absolute; top: 0px; left: 100px; }
+      iframe { border: 0px solid #FFF; width:100%; height: 99% }
+    </style>
+    <script type="text/javascript">
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            baseUrl: './',
+            // map local widget namespaces -> paths relative to baseUrl
+            modulePaths: {'widgets' : 'widgets'}
+        };
+    </script>
+    <script type="text/javascript" 
+            src="http://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js"></script>
+    <script type="text/javascript">
+        dojo.require('dijit.form.Button');
+    </script>
+    <link rel="stylesheet" type="text/css" href="sm2/css/mp3-player-button.css" />
+    <script type="text/javascript" src="sm2/script/soundmanager2.js"></script>
+    <script type="text/javascript" src="sm2/script/mp3-player-button.js"></script>
+    <script>
+        soundManager.url = 'sm2/swf/'; // required: path to directory containing SM2 SWF files
+        soundManager.debugMode = false;
+    </script>
+    <script type="text/javascript"
+            src="player.js"></script>
+  </head>
+  <body class="tundra">
+    <div id="controls">
+        <button dojoType="dijit.form.Button" type="button" id="pause">Pause</button>
+    </div>
+    <div id="frame"><div>
+  </body>
+</html>
+
+  
+

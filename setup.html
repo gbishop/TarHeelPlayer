@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tar Heel Player Setup</title>
+    <style type="text/css">
+      @import "http://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/resources/dojo.css";
+      @import "http://ajax.googleapis.com/ajax/libs/dojo/1.5/dijit/themes/tundra/tundra.css";
+      html, body, #frame {width: 100%; height: 100%;}
+      #controls { position: absolute; top: 0px; left: 100px; }
+      iframe { border: 0px solid #FFF; width:100%; height: 99% }
+      .hidden { display: none; }
+      #info { padding: 10px; }
+      input { width: 400px; }
+      .columns {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        -moz-column-gap: 10px;
+        -webkit-column-gap: 10px;
+        column-count: 4;
+        column-gap: 10px;
+      }
+    </style>
+    <script type="text/javascript">
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            baseUrl: './',
+            // map local widget namespaces -> paths relative to baseUrl
+            modulePaths: {'widgets' : 'widgets'}
+        };
+    </script>
+    <script type="text/javascript" 
+            src="http://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js"></script>
+    <script type="text/javascript">
+        dojo.require('dijit.form.Button');
+        dojo.require('dijit.form.TextBox');
+        dojo.require('dijit.form.NumberSpinner');
+    </script>
+    <script type="text/javascript" src="sm2/script/soundmanager2.js"></script>
+    <script>
+        soundManager.url = 'sm2/swf/'; // required: path to directory containing SM2 SWF files
+        soundManager.debugMode = false;
+    </script>
+    <script type="text/javascript"
+            src="setup.js"></script>
+  </head>
+  <body class="tundra">
+    <div id="info">
+        <p>Copy and paste the URL for your Tar Heel Reader book in the field below. I have filled in Chris Barton's Pizza book as an example.</p>
+        <div id="book" dojoType="dijit.form.TextBox" intermediateChanges="true"
+             style="width:50em;" value="http://tarheelreader.org/2011/02/03/p-i-z-z-a/"></div>
+        <label for="book">Book URL</label><br/>
+        <p>Now copy and paste the URL for your music in the field below. Note: your music must
+        be in mp3 format and must be accessible somewhere on the web. I have pasted in Chris Barton's Pizza song as an example.</p>
+        <div id="tune" dojoType="dijit.form.TextBox" intermediateChanges="true"
+               style="width:50em;" value="http://gb.cs.unc.edu/local/PIZZA.mp3"></div>
+        <label for="tune">Tune URL</label><br/>
+        <p>At this point your book is ready to play without automatic page advance; the reader will get to manually advance the page while listening to the music. Press the <b>Test</b> button (at the bottom of the page) to try out the book.</p>
+        <p>If you want the page to automatically advance in time with the music you must supply the time for each page change. Sounds difficult doesn't it? To make it a <em>bit</em> easier I've added the <b>Get Times</b> button. When you click it, your chosen book will appear and the music will play. You job is to press the <b>Turn</b> button (at the top of the page) each time you want the page to change. I'm not talking about the <b>Next Page</b> button you'll see in the lower right of the Tar Heel Reader page; that will advance the page but the time won't get recorded for later playback. You've got to press the <b>Turn</b> button near the top of the page each time you want the page to advance. If the page loads slowly just keep time with the <b>Turn</b> button. Got that? If you make a mistake, you can simply click <b>Done</b> and start over by clicking <b>Get Times</b> again. Do it several times and you'll get the hang of it <em>and</em> all the pages of your books will get cached in your browser so they will load faster.</p>
+        <p>When you are finished clicking <b>Turn</b> through the entire book, click the <b>Done</b> button. That will bring you back here but now you'll see a list with the time for each page change. You can make any changes in times by entering a new time for a page or clicking the up and down arrows next to each time.</p>
+        <button dojoType="dijit.form.Button" type="button" id="play">Get Times</button>
+        <p><b>Page Times</b>
+        <div class="columns">
+          <ol id="pagetimes"><li>0.0</li></ol></p>
+        </div>
+        <p id="url"></p>
+        <p>Once everything is in place you can see the finished product by pressing the <b>Test</b> button below. It should open a new window (or tab) and show the book with the music playing. The URL in the address bar is the key to the performance. Shorten it, share it, post it, and anyone can see your book + music. Note: this URL is <b>NOT saved anywhere</b>; bookmark or otherwise save it if you want to avoid finding the times again.</p>
+        <button dojoType="dijit.form.Button" type="button" id="test">Test</button>
+    </div>
+    <div id="controls" class="hidden">
+        <button dojoType="dijit.form.Button" type="button" id="pause">Pause</button>
+        <button dojoType="dijit.form.Button" type="button" id="turn">Turn</button>
+        <button dojoType="dijit.form.Button" type="button" id="done">Done</button>
+    </div>
+    <div id="frame" class="hidden">
+        <iframe></iframe>
+    <div>
+  </body>
+</html>
