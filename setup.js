@@ -42,7 +42,7 @@ dojo.ready(function() {
             url = url + '&times=' + times.join(',');
         }
         testURL = url;
-        urlCtrl.innerHTML = url;
+        urlCtrl.innerHTML = url.replace('&','&amp;');
     };
     dojo.connect(bookCtrl, 'onChange', updateURL);
     dojo.connect(tuneCtrl, 'onChange', updateURL);
