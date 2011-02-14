@@ -7,7 +7,10 @@ dojo.ready(function() {
     var tune_url = 'http://' + parms.tune;
     var times = [];
     if (parms.times) {
-        times = dojo.map(parms.times.split(','), function(t) {
+        parms.t = parms.times;
+    }
+    if (parms.t) {
+        times = dojo.map(parms.t.split(','), function(t) {
             var m = /((\d+):)?(\d+)(\.\d+)?/.exec(t);
             var minutes = m[2] && parseFloat(m[2]) || 0;
             var seconds = parseFloat(m[3]+m[4]);

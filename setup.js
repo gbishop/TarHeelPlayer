@@ -39,7 +39,7 @@ dojo.ready(function() {
         var url = window.location.href.replace('setup.html', '');
         url = url + '?' + bookParm + '&' + tuneParm;
         if (times.length > 0) {
-            url = url + '&times=' + times.join(',');
+            url = url + '&' + 't=' + times.join(',');
         }
         testURL = url;
         urlCtrl.innerHTML = url.replace('&','&amp;');
