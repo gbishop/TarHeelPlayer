@@ -1,7 +1,7 @@
 dojo.ready(function() {
     var bookCtrl = dijit.byId('book');
     var tuneCtrl = dijit.byId('tune');
-    var urlCtrl = dojo.byId('url');
+    var urlCtrl = dijit.byId('url');
 
     var times = [];
     var bookURL, tuneURL, testURL;
@@ -13,7 +13,7 @@ dojo.ready(function() {
         page = 1;
         times = [];
         updateURL();
-        console.log('tune', tuneURL);
+        //console.log('tune', tuneURL);
         tune = soundManager.createSound({
             id: 'tune',
             url: tuneURL
@@ -23,7 +23,7 @@ dojo.ready(function() {
         dojo.query('#controls').removeClass('hidden');
         dojo.query('#frame').removeClass('hidden');
 
-        console.log(bookURL);
+        //console.log(bookURL);
 
         setPage(1);
         tune.play();
@@ -42,10 +42,36 @@ dojo.ready(function() {
             url = url + '&' + 't=' + times.join(',');
         }
         testURL = url;
-        urlCtrl.innerHTML = url.replace('&','&amp;');
+        urlCtrl.attr('value', url);
     };
+    var parseURL = function() {
+        // parse a generated URL to allow further editing
+        var pUrl = urlCtrl.attr('value');
+        var pIndex = pUrl.indexOf('?');
+        if (pIndex < 0) {
+            return;
+        }
+        var query = dojo.queryToObject(pUrl.substring(pIndex+1, pUrl.length));
+        if ('book' in query) {
+            bookCtrl.attr('value', 'http://tarheelreader.org/' + query.book);
+        }
+        if ('tune' in query) {
+            tuneCtrl.attr('value', 'http://' + query.tune);
+        }
+        if ('times' in query) {
+            query.t = query.times;
+        }
+        if ('t' in query) {
+            times = dojo.map(query.t.split(','), function(t) {
+                return parseFloat(t);
+            });
+        }
+        done();
+    }
+
     dojo.connect(bookCtrl, 'onChange', updateURL);
     dojo.connect(tuneCtrl, 'onChange', updateURL);
+    dojo.connect(urlCtrl, 'onChange', parseURL);
     updateURL();
 
     var setPage = function(page) {
@@ -72,20 +98,22 @@ dojo.ready(function() {
             var t = tune.position;
             t = Math.floor(t/100)/10.0;
             times.push(t);
-            console.log(times);
+            //console.log(times);
         }
     });
-    dojo.connect(dijit.byId('done'), 'onClick', function() {
-        tune.destruct();
+    var done = function() {
+        if (tune) {
+            tune.destruct();
+        }
         var pt = dojo.byId('pagetimes');
         dojo.empty(pt);
         var fixTimes = function() {
-            console.log('time change');
+            //console.log('time change');
             var spinners = dojo.query('.dijitSpinner', pt);
             times = spinners.map(function(spinner) {
                 return dijit.byNode(spinner).attr('value');
             });
-            console.log('update times', times);
+            //console.log('update times', times);
             updateURL();
         };
         dojo.create('li', { innerHTML: '0.0' }, pt);
@@ -108,7 +136,8 @@ dojo.ready(function() {
         dojo.query('#controls').addClass('hidden');
         dojo.query('#frame').addClass('hidden');
         updateURL();
-    });
+    };
+    dojo.connect(dijit.byId('done'), 'onClick', done);
     dojo.connect(dijit.byId('test'), 'onClick', function() {
         window.open(testURL, 'test');
     });

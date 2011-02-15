@@ -35,6 +35,7 @@
     <script type="text/javascript">
         dojo.require('dijit.form.Button');
         dojo.require('dijit.form.TextBox');
+        dojo.require('dijit.form.Textarea');
         dojo.require('dijit.form.NumberSpinner');
     </script>
     <script type="text/javascript" src="sm2/script/soundmanager2.js"></script>
@@ -64,7 +65,9 @@
         <div class="columns">
           <ol id="pagetimes"><li>0.0</li></ol></p>
         </div>
-        <p id="url"></p>
+        <div id="url" dojoType="dijit.form.Textarea" intermediateChanges="true"
+             style="width:50em;" value=""></div>
+        <label for="url">Generated Player URL</label>
         <p>Once everything is in place you can see the finished product by pressing the <b>Test</b> button below. It should open a new window (or tab) and show the book with the music playing. The URL in the address bar is the key to the performance. Shorten it, share it, post it, and anyone can see your book + music. Note: this URL is <b>NOT saved anywhere</b>; bookmark or otherwise save it if you want to avoid finding the times again.</p>
         <button dojoType="dijit.form.Button" type="button" id="test">Test</button>
     </div>
